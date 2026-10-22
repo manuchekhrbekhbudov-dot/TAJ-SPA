@@ -14,3 +14,10 @@ Open `index.html` in a browser. Internet is needed for the Google Font and Unspl
 In the repository, open **Settings → Pages**, choose **Deploy from a branch**, select **main** and **/(root)**, then save. After GitHub finishes deploying, the site URL will appear in that Pages section.
 
 Before public launch, replace sample photos with actual TAJ SPA photos and confirm the opening hours and contact details.
+
+## Current design
+
+- Premium charcoal, gold, and blue styling inspired by the TAJ SPA sign and pool lighting.
+- Uses the supplied TAJ SPA logo and venue photos in `assets/`.
+- Gallery and page layout adapt to mobile screens.
+- Public Instagram link: https://www.instagram.com/_tajspa/
