@@ -2,6 +2,20 @@
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
   const toast = document.querySelector('#form-toast');
+  const url = String(window.TAJSPA_SUPABASE_URL || '').trim();
+  const key = String(window.TAJSPA_SUPABASE_ANON_KEY || '').trim();
+  const configured =
+    window.supabase &&
+    typeof window.supabase.createClient === 'function' &&
+    /^https:\/\//i.test(url) &&
+    !url.includes('YOUR-PROJECT') &&
+    key.length > 25 &&
+    !key.includes('YOUR_SUPABASE');
+  const db = configured
+    ? window.supabase.createClient(url, key, {
+        auth: { persistSession: true, autoRefreshToken: true }
+      })
+    : null;
 
   if (menuButton && nav) {
     menuButton.addEventListener('click', () => {
@@ -26,76 +40,92 @@
   if (year) year.textContent = new Date().getFullYear();
 
   let toastTimer;
-  function showToast(message) {
+  function showToast(message, isError = false) {
     if (!toast) return;
     toast.textContent = message;
+    toast.classList.toggle('toast-error', Boolean(isError));
     toast.classList.add('show');
     window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(() => toast.classList.remove('show'), 5200);
+    toastTimer = window.setTimeout(() => toast.classList.remove('show'), 6500);
   }
 
-  async function copyMessage(message) {
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(message);
-        return true;
-      }
-    } catch (_) {}
-    try {
-      const area = document.createElement('textarea');
-      area.value = message;
-      area.setAttribute('readonly', '');
-      area.style.position = 'fixed';
-      area.style.opacity = '0';
-      document.body.appendChild(area);
-      area.select();
-      const copied = document.execCommand('copy');
-      area.remove();
-      return copied;
-    } catch (_) {
-      return false;
-    }
-  }
+  const kindMap = {
+    'Шикоят': 'complaint',
+    'Пешниҳод': 'suggestion',
+    'Савол': 'question',
+    'Ташаккур': 'thanks'
+  };
 
-  async function handleFeedback(event, kind) {
+  async function saveFeedback(event, formKind) {
     event.preventDefault();
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
 
-    const data = new FormData(form);
-    let message = '';
-    if (kind === 'review') {
-      const name = (data.get('name') || '').toString().trim() || 'Меҳмон';
-      message = [
-        '⭐ ОТЗЫВ — TAJ SPA',
-        'Ном: ' + name,
-        'Баҳо: ' + data.get('rating'),
-        'Назари ман: ' + (data.get('message') || '').toString().trim()
-      ].join('\n');
-    } else {
-      message = [
-        '✉️ МУРОҶИАТ БА TAJ SPA',
-        'Навъ: ' + data.get('type'),
-        'Ном: ' + ((data.get('name') || '').toString().trim() || 'Нишон дода нашудааст'),
-        'Барои тамос: ' + ((data.get('contact') || '').toString().trim() || 'Нишон дода нашудааст'),
-        'Паём: ' + (data.get('message') || '').toString().trim()
-      ].join('\n');
+    if (!db) {
+      showToast('Фиристодан ҳоло фаъол нест: администратор бояд Supabase-ро дар supabase-config.js пайваст кунад.', true);
+      return;
     }
 
-    window.open('https://www.instagram.com/_tajspa/', '_blank', 'noopener,noreferrer');
-    const copied = await copyMessage(message);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const previousText = submitButton ? submitButton.textContent : '';
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Сабт шуда истодааст…';
+    }
 
-    if (copied) {
-      showToast('Матн нусхабардорӣ шуд. Дар Instagram Direct онро гузошта, фиристед.');
-    } else {
-      window.prompt('Матни паёмро нусха карда, ба Instagram Direct гузоред:', message);
-      showToast('Instagram кушода шуд. Матнро аз равзанаи пайдошуда нусха кунед.');
+    try {
+      const values = new FormData(form);
+      const message = String(values.get('message') || '').trim();
+      const name = String(values.get('name') || '').trim();
+      const contact = String(values.get('contact') || '').trim();
+      let payload;
+
+      if (formKind === 'review') {
+        payload = {
+          kind: 'review',
+          name: name || null,
+          contact: null,
+          rating: Number(values.get('rating')),
+          message
+        };
+      } else {
+        payload = {
+          kind: kindMap[String(values.get('type') || '')] || 'complaint',
+          name: name || null,
+          contact: contact || null,
+          rating: null,
+          message
+        };
+      }
+
+      const { error } = await db.from('spa_feedback').insert(payload);
+      if (error) {
+        console.error('TAJ SPA feedback save failed:', error);
+        showToast('Паём сабт нашуд. Танзими пойгоҳи маълумот ё иҷозатҳои SQL-ро санҷед.', true);
+        return;
+      }
+
+      form.reset();
+      showToast(formKind === 'review'
+        ? 'Отзыви шумо дархост шуд ва ба кабинети администратор сабт гардид.'
+        : 'Муроҷиати шумо ба кабинети администратор бомуваффақият сабт шуд.');
+    } catch (error) {
+      console.error('TAJ SPA feedback save failed:', error);
+      showToast('Хатои пайвастшавӣ. Интернет ва танзими Supabase-ро санҷед.', true);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = previousText;
+      }
     }
   }
 
   const reviewForm = document.querySelector('#review-form');
-  if (reviewForm) reviewForm.addEventListener('submit', (event) => handleFeedback(event, 'review'));
-
+  if (reviewForm) {
+    reviewForm.addEventListener('submit', (event) => saveFeedback(event, 'review'));
+  }
   const complaintForm = document.querySelector('#complaint-form');
-  if (complaintForm) complaintForm.addEventListener('submit', (event) => handleFeedback(event, 'complaint'));
+  if (complaintForm) {
+    complaintForm.addEventListener('submit', (event) => saveFeedback(event, 'complaint'));
+  }
 })();
