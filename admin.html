@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="tg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08090c">
+  <title>TAJ SPA — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=20261022-1">
+</head>
+<body>
+  <header class="admin-topbar">
+    <a class="admin-brand" href="index.html">
+      <span class="brand-mark">T<span>SPA</span></span>
+      <span><strong>TAJ SPA</strong><small>ADMINISTRATION</small></span>
+    </a>
+    <a class="back-link" href="index.html">← Ба сайт</a>
+  </header>
+
+  <main class="admin-shell">
+    <div class="admin-heading">
+      <p class="eyebrow"><span></span> МАРКАЗИ ИДОРАКУНӢ</p>
+      <h1>Қабули <em>муроҷиатҳо.</em></h1>
+      <p class="intro">Отзывҳо, шикоятҳо ва пешниҳодҳои меҳмонон дар ин ҷо сабт мешаванд. Танҳо аккаунти иҷозатдодашудаи администратор онҳоро хонда метавонад.</p>
+    </div>
+
+    <div class="setup-alert" id="setup-warning" hidden>
+      <strong>Пайвастшавӣ ҳоло танзим нашудааст</strong>
+      <p>Барои фаъол кардани сабт ва дидани муроҷиатҳо, Project URL ва калиди publishable/anon-и Supabase-ро ба <code>supabase-config.js</code> гузоред ва файли <code>supabase-setup.sql</code>-ро дар SQL Editor иҷро кунед. Калиди service_role-ро дар сайт нагузоред.</p>
+      <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Кушодани Supabase ↗</a>
+    </div>
+
+    <section class="login-panel" id="login-panel">
+      <div class="login-icon">↗</div>
+      <h2>Воридшавии администратор</h2>
+      <p class="small-copy">Бо email ва пароле, ки дар Supabase Auth сохта шудааст, ворид шавед.</p>
+      <form id="admin-login-form">
+        <label for="admin-email">Email</label>
+        <input id="admin-email" name="email" type="email" autocomplete="username" required placeholder="admin@example.com">
+        <label for="admin-password">Парол</label>
+        <input id="admin-password" name="password" type="password" autocomplete="current-password" required placeholder="Пароли аккаунт">
+        <button class="gold-button" type="submit" id="login-submit">Ворид шудан <span>↗</span></button>
+        <p class="form-message" id="login-message" role="status" aria-live="polite"></p>
+      </form>
+      <p class="security-note">Аккаунтҳои оддӣ ҳуқуқи дидани шикоятҳоро надоранд. Администратор бояд дар ҷадвали <code>spa_admins</code> иҷозат дошта бошад.</p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="dashboard-top">
+        <div><p class="logged-in-label">ҲИСОБИ ФАЪОЛ</p><h2 id="admin-display-name">Admin</h2><p id="admin-email-display" class="small-copy"></p></div>
+        <div class="dashboard-actions"><button class="quiet-button" id="refresh-btn" type="button">↻ Навсозӣ</button><button class="quiet-button" id="logout-btn" type="button">Баромадан ↗</button></div>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card"><span>Нав</span><strong id="stat-new">0</strong><small>Интизори хондан</small></article>
+        <article class="stat-card"><span>Хонда шуд</span><strong id="stat-read">0</strong><small>Баррасӣ шуда истодааст</small></article>
+        <article class="stat-card"><span>Ҳал шуд</span><strong id="stat-resolved">0</strong><small>Муроҷиатҳои анҷомёфта</small></article>
+      </div>
+      <div class="inbox-toolbar">
+        <div><h2>Муроҷиатҳо</h2><p id="result-count" class="small-copy">—</p></div>
+        <div class="filters">
+          <input id="search-box" type="search" placeholder="Ҷустуҷӯ дар паёмҳо…">
+          <select id="status-filter" aria-label="Филтр аз рӯи вазъият"><option value="all">Ҳамаи вазъиятҳо</option><option value="new">Нав</option><option value="read">Хонда шуд</option><option value="resolved">Ҳал шуд</option></select>
+          <select id="kind-filter" aria-label="Филтр аз рӯи навъи муроҷиат"><option value="all">Ҳамаи навъҳо</option><option value="complaint">Шикоят</option><option value="suggestion">Пешниҳод</option><option value="question">Савол</option><option value="thanks">Ташаккур</option><option value="review">Отзыв</option></select>
+        </div>
+      </div>
+      <p id="inbox-message" class="inbox-message" role="status" aria-live="polite"></p>
+      <div class="feedback-list" id="feedback-list"></div>
+      <p class="footer-note">Муроҷиатҳо дар пойгоҳи Supabase сабт мешаванд; ин саҳифа худ аз худ онҳоро ба меҳмонони дигар нишон намедиҳад.</p>
+    </section>
+  </main>
+
+  <footer class="admin-footer"><span>© <span id="year"></span> TAJ SPA</span><span>PRIVATE ADMIN INBOX</span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=20261022-1"></script>
+  <script src="admin.js?v=20261022-1"></script>
+</body>
+</html>
