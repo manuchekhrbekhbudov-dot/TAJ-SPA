@@ -37,3 +37,27 @@
 @media(max-width:1120px){.brand-logo-fallback{width:73px;height:50px;font-size:11px}}
 @media(max-width:760px){.brand-logo-fallback{width:66px;height:44px;font-size:10px;letter-spacing:1.2px}.footer-brand .brand-logo-fallback{width:60px;height:38px;font-size:9px}}
 @media(max-width:375px){.brand-logo-fallback{width:55px}}
+
+/* Real TAJ SPA photos — prioritize supplied venue images, avoid zoom blur */
+.hero-photo{
+  left:40%;width:60%;right:0;
+  background-image:url('assets/pool-main.webp');
+  background-position:center 48%;background-size:cover;background-repeat:no-repeat;
+  transform:none;animation:none;
+}
+.hero-shade{
+  background:
+    linear-gradient(90deg,#08090c 0%,#08090cf5 26%,#08090c9c 49%,#08090c18 100%),
+    linear-gradient(0deg,#08090c 0%,transparent 32%,#08090c3a 100%);
+}
+.pool,.gallery-pool{background-image:url('assets/pool-main.webp');background-position:center;background-size:cover}
+.sauna,.gallery-sauna{background-image:url('assets/sauna-actual.webp');background-position:center;background-size:cover}
+.fitness,.gallery-fitness{background-image:url('assets/fitness.webp');background-position:center;background-size:cover}
+.jacuzzi{background-image:url('assets/cold-pool.webp');background-position:center;background-size:cover}
+.shower,.gallery-steam{background-image:url('assets/steam.jpg');background-position:center;background-size:cover}
+.lounge,.gallery-lobby{background-image:url('assets/lounge.webp');background-position:center;background-size:cover}
+.gallery-entrance{background-image:url('assets/entrance-real.webp');background-position:center;background-size:cover}
+@media(max-width:760px){
+ .hero-photo{left:20%;width:80%;background-position:57% center}
+ .hero-shade{background:linear-gradient(90deg,#08090cf2 0%,#08090ca8 52%,#08090c35 100%),linear-gradient(0deg,#08090c 0%,transparent 38%,#08090c3a 100%)}
+}
