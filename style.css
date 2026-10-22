@@ -23,3 +23,11 @@
 .review-empty{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0;margin:18px 0;display:flex;flex-direction:column;gap:6px}
 .review-empty strong{font-size:11px;color:var(--ink)}
 .review-empty span{font-size:10px;line-height:1.7;color:var(--muted)}
+
+/* Admin inbox links, upload-state and feedback status */
+.footer-links{display:flex;align-items:center;gap:22px}
+.footer-links>a:first-child{font-size:9px;color:#aeb4bf;white-space:nowrap}
+.footer-links>a:first-child:hover{color:var(--gold)}
+.toast.toast-error{background:#2a1212;border:1px solid #b94c45;color:#ffe2dc}
+.button:disabled{opacity:.6;cursor:wait;transform:none}
+@media(max-width:760px){.footer-links{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:9px}.footer-links>a:first-child{font-size:8px}}
