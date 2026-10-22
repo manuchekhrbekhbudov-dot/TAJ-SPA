@@ -22,3 +22,5 @@ If a new design does not appear straight away, wait for the latest **pages build
 The design uses the supplied TAJ SPA logo and real venue photography. The page links to https://www.instagram.com/_tajspa/.
 
 Please confirm opening hours and the final contact details before sharing the site publicly.
+
+The live website uses real TAJ SPA photos and includes services, membership prices, customer review and feedback forms. Feedback is prepared for Instagram Direct; submissions are not stored on this static site.
