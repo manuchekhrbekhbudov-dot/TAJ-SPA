@@ -1,23 +1,24 @@
 # TAJ SPA Website
 
-Responsive Tajik-language website for TAJ SPA, using HTML, CSS and JavaScript.
+A responsive Tajik-language landing page for TAJ SPA, built with HTML, CSS, and vanilla JavaScript.
 
-## Files
-- `index.html` — website structure and content
-- `style.css` — responsive dark-green and gold design
-- `main.js` — mobile navigation and current year
+## Project files
 
-## Preview locally
-Open `index.html` in a browser. Internet is needed for the Google Font and Unsplash photos.
+- `index.html` — page structure and Tajik copy
+- `style.css` — charcoal, gold, and blue styling
+- `main.js` — responsive mobile navigation
+- `assets/` — TAJ SPA logo and venue photos
 
-## Publish with GitHub Pages
-In the repository, open **Settings → Pages**, choose **Deploy from a branch**, select **main** and **/(root)**, then save. After GitHub finishes deploying, the site URL will appear in that Pages section.
+## Publishing
 
-Before public launch, replace sample photos with actual TAJ SPA photos and confirm the opening hours and contact details.
+This repository is configured for GitHub Pages. The workflow in `.github/workflows/pages.yml` publishes the site after updates to `main`.
 
-## Current design
+Live URL: https://manuchekhrbekhbudov-dot.github.io/TAJ-SPA/
 
-- Premium charcoal, gold, and blue styling inspired by the TAJ SPA sign and pool lighting.
-- Uses the supplied TAJ SPA logo and venue photos in `assets/`.
-- Gallery and page layout adapt to mobile screens.
-- Public Instagram link: https://www.instagram.com/_tajspa/
+If a new design does not appear straight away, wait for the latest **pages build and deployment** run to finish successfully, then hard-refresh the browser (Ctrl+F5 on Windows). The stylesheet link has a version query to avoid the browser reusing a cached copy.
+
+## Brand and content
+
+The design uses the supplied TAJ SPA logo and real venue photography. The page links to https://www.instagram.com/_tajspa/.
+
+Please confirm opening hours and the final contact details before sharing the site publicly.
