@@ -2,6 +2,16 @@
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
   const toast = document.querySelector('#form-toast');
+  document.querySelectorAll('.brand-logo').forEach((logo) => {
+    logo.addEventListener('error', () => {
+      const fallback = document.createElement('span');
+      fallback.className = 'brand-logo brand-logo-fallback';
+      fallback.setAttribute('aria-label', 'TAJ SPA');
+      fallback.textContent = 'TAJ SPA';
+      logo.replaceWith(fallback);
+    }, { once: true });
+  });
+
   const url = String(window.TAJSPA_SUPABASE_URL || '').trim();
   const key = String(window.TAJSPA_SUPABASE_ANON_KEY || '').trim();
   const configured =
