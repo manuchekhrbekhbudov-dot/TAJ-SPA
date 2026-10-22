@@ -2,14 +2,19 @@
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
   const toast = document.querySelector('#form-toast');
-  document.querySelectorAll('.brand-logo').forEach((logo) => {
-    logo.addEventListener('error', () => {
-      const fallback = document.createElement('span');
-      fallback.className = 'brand-logo brand-logo-fallback';
-      fallback.setAttribute('aria-label', 'TAJ SPA');
-      fallback.textContent = 'TAJ SPA';
-      logo.replaceWith(fallback);
-    }, { once: true });
+  function useLogoFallback(logo) {
+    const fallback = document.createElement('span');
+    fallback.className = 'brand-logo brand-logo-fallback';
+    fallback.setAttribute('aria-label', 'TAJ SPA');
+    fallback.textContent = 'TAJ SPA';
+    logo.replaceWith(fallback);
+  }
+  document.querySelectorAll('img.brand-logo').forEach((logo) => {
+    if (logo.complete && logo.naturalWidth === 0) {
+      useLogoFallback(logo);
+    } else {
+      logo.addEventListener('error', () => useLogoFallback(logo), { once: true });
+    }
   });
 
   const url = String(window.TAJSPA_SUPABASE_URL || '').trim();
