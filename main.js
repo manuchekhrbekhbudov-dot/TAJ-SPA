@@ -82,7 +82,7 @@
       ].join('\n');
     }
 
-    const popup = window.open('https://www.instagram.com/_tajspa/', '_blank', 'noopener,noreferrer');
+    window.open('https://www.instagram.com/_tajspa/', '_blank', 'noopener,noreferrer');
     const copied = await copyMessage(message);
 
     if (copied) {
@@ -91,7 +91,6 @@
       window.prompt('Матни паёмро нусха карда, ба Instagram Direct гузоред:', message);
       showToast('Instagram кушода шуд. Матнро аз равзанаи пайдошуда нусха кунед.');
     }
-    if (!popup) showToast('Агар Instagram кушода нашуд, @ _tajspa-ро кушоед ва матни тайёршударо ба Direct гузоред.');
   }
 
   const reviewForm = document.querySelector('#review-form');
