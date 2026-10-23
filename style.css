@@ -61,3 +61,32 @@
  .hero-photo{left:20%;width:80%;background-position:57% center}
  .hero-shade{background:linear-gradient(90deg,#08090cf2 0%,#08090ca8 52%,#08090c35 100%),linear-gradient(0deg,#08090c 0%,transparent 38%,#08090c3a 100%)}
 }
+
+/* REAL TAJ SPA PHOTOS ONLY: use photos supplied by the owner, no external stock backgrounds. */
+.hero-photo{
+  background-image:url('assets/pool-main.webp') !important;
+  background-position:center center !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+  transform:none !important;
+  animation:none !important;
+  filter:none !important;
+}
+.hero-shade{
+  background:
+    linear-gradient(90deg,rgba(5,7,10,.94) 0%,rgba(5,7,10,.77) 35%,rgba(5,7,10,.22) 72%,rgba(5,7,10,.09) 100%),
+    linear-gradient(0deg,rgba(8,9,12,.8) 0%,transparent 35%,rgba(8,9,12,.16) 100%) !important;
+}
+.pool,.gallery-pool{background-image:url('assets/pool-main.webp') !important;background-position:center !important;background-size:cover !important}
+.sauna,.gallery-sauna{background-image:url('assets/sauna-actual.webp') !important;background-position:center !important;background-size:cover !important}
+.fitness,.gallery-fitness{background-image:url('assets/fitness.webp') !important;background-position:center !important;background-size:cover !important}
+.jacuzzi{background-image:linear-gradient(145deg,#0b1b2e,#174e75 46%,#080b12) !important}
+.shower,.gallery-steam{background-image:url('assets/steam.jpg') !important;background-position:center !important;background-size:cover !important}
+.lounge,.gallery-lobby{background-image:url('assets/lobby.jpg') !important;background-position:center !important;background-size:cover !important}
+.gallery-entrance{background-image:url('assets/entrance-real.webp') !important;background-position:center !important;background-size:cover !important}
+.service,.gallery-card{background-repeat:no-repeat !important}
+.service{filter:none !important}
+@media(max-width:760px){
+ .hero-photo{left:10% !important;width:90% !important;background-position:58% center !important}
+ .hero-shade{background:linear-gradient(90deg,rgba(5,7,10,.90),rgba(5,7,10,.53) 64%,rgba(5,7,10,.28)) !important}
+}
