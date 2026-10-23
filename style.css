@@ -64,6 +64,9 @@
 
 /* REAL TAJ SPA PHOTOS ONLY: use photos supplied by the owner, no external stock backgrounds. */
 .hero-photo{
+  left:34% !important;
+  width:66% !important;
+  right:0 !important;
   background-image:url('assets/pool-main.webp') !important;
   background-position:center center !important;
   background-size:cover !important;
@@ -87,6 +90,6 @@
 .service,.gallery-card{background-repeat:no-repeat !important}
 .service{filter:none !important}
 @media(max-width:760px){
- .hero-photo{left:10% !important;width:90% !important;background-position:58% center !important}
+ .hero-photo{left:18% !important;width:82% !important;background-position:58% center !important}
  .hero-shade{background:linear-gradient(90deg,rgba(5,7,10,.90),rgba(5,7,10,.53) 64%,rgba(5,7,10,.28)) !important}
 }
