@@ -93,3 +93,52 @@
  .hero-photo{left:18% !important;width:82% !important;background-position:58% center !important}
  .hero-shade{background:linear-gradient(90deg,rgba(5,7,10,.90),rgba(5,7,10,.53) 64%,rgba(5,7,10,.28)) !important}
 }
+
+/* Final gallery polish: keep owner-provided images, no stock-photo URLs or artificial zoom */
+.hero-photo{
+  background-size:auto 100% !important;
+  background-position:right center !important;
+  background-repeat:no-repeat !important;
+  background-color:#08090c !important;
+  transform:none !important;
+  animation:none !important;
+}
+.hero-shade{
+  background:linear-gradient(90deg,rgba(5,7,10,.98) 0%,rgba(5,7,10,.84) 23%,rgba(5,7,10,.28) 52%,rgba(5,7,10,.02) 100%),linear-gradient(0deg,rgba(8,9,12,.7),transparent 35%) !important;
+}
+.service:before,.gallery-card:before{
+  background:linear-gradient(180deg,rgba(5,7,10,.03) 0%,rgba(5,7,10,.08) 36%,rgba(5,7,10,.72) 100%) !important;
+}
+.service,.gallery-card{
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  filter:none !important;
+}
+.sauna,.gallery-sauna{
+  background-image:url('assets/shower.webp') !important;
+  background-position:center 55% !important;
+  background-size:cover !important;
+}
+.shower,.gallery-steam{
+  background-image:url('assets/steam.jpg') !important;
+  background-position:center center !important;
+  background-size:cover !important;
+}
+.pool,.gallery-pool{
+  background-image:url('assets/pool-main.webp') !important;
+  background-position:center center !important;
+  background-size:cover !important;
+}
+.gallery-entrance{background-image:url('assets/entrance-real.webp') !important;background-size:cover !important;}
+.gallery-lobby{background-image:url('assets/lobby.jpg') !important;background-size:cover !important;}
+.gallery-fitness{background-image:url('assets/fitness.webp') !important;background-size:cover !important;}
+@media(max-width:760px){
+  .hero-photo{
+    background-size:auto 90% !important;
+    background-position:right 58% !important;
+    background-color:#08090c !important;
+  }
+  .hero-shade{
+    background:linear-gradient(90deg,rgba(5,7,10,.92) 0%,rgba(5,7,10,.72) 48%,rgba(5,7,10,.18) 100%),linear-gradient(0deg,rgba(8,9,12,.68),transparent 36%) !important;
+  }
+}
